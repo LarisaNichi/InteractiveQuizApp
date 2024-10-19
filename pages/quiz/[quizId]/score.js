@@ -10,13 +10,14 @@ export default function Score() {
     setLocalValue(value);
   }, []);
 
-  const { category, questionsNumber, correctAnswers } = localValue;
+  const { category, questionsNumber, correctAnswers, quizId } = localValue;
 
   return (
     <ShowResults
       category={category}
       questionsNumber={questionsNumber}
       correctAnswers={correctAnswers}
+      quizId={quizId}
     />
   );
 }

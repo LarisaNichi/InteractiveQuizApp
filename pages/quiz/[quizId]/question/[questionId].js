@@ -1,39 +1,48 @@
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { promises as fs } from 'fs';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from '../../../../styles/Home.module.css';
 import AnswerMessage from '@/components/AnswerMessage';
 
-export async function getServerSideProps() {
-  const file = await fs.readFile(
-    process.cwd() + '/data/questions.json',
-    'utf8'
-  );
-  const quizes = JSON.parse(file);
-  return { props: { quizes } };
-}
-
-export default function QuestionId({ quizes }) {
+export default function QuestionId() {
+  const [quizes, setQuizes] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [currentQuestionIdx, setCurrentQuestionIdx] = useState(0);
   const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(null);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [correctAnswers, setcorrectAnswers] = useState(0);
-
-  const disabled = isSubmitted;
-
   const router = useRouter();
+  const disabled = isSubmitted;
   const { quizId, questionId } = router.query;
 
-  const { category, questions } = quizes.find(
-    (quiz) => quiz.id === Number(quizId)
-  );
+  useEffect(() => {
+    (async () => {
+      const res = await fetch('/api/questions');
+      const data = await res.json();
+      setQuizes(data);
+      setIsLoading(false);
+    })();
+  }, []);
+
+  if (isLoading) {
+    return (
+      <>
+        <div className={styles.centerCnt}>
+          <h1 className={styles.h1}>Loading...</h1>
+        </div>
+      </>
+    );
+  }
+
+  // if (quizes.length === 0) {
+  //   return <h1 className={styles.h1}>Loading...</h1>;
+  // }
+  // if (!quizes) return <h1 className={styles.h1}>No quizes available yet!</h1>;
+
   const questionIdNr = +questionId;
+  const { category, questions } = quizes.find((quiz) => quiz.id === +quizId);
   const questionsNumber = questions.length;
-
-  const { question, answers, correctAnswer } = questions.find(
-    (question, index) => index + 1 === questionIdNr
-  );
-
+  const { question, answers, correctAnswer } = questions[currentQuestionIdx];
   const isCorrectAnswer = answers[selectedAnswerIndex] === correctAnswer;
 
   function handleSelectedAnswer(index) {
@@ -51,12 +60,18 @@ export default function QuestionId({ quizes }) {
   function handleNextQuestion() {
     setSelectedAnswerIndex(null);
     setIsSubmitted(false);
+
+    if (currentQuestionIdx !== questionsNumber - 1) {
+      setCurrentQuestionIdx((prev) => prev + 1);
+    } else {
+      setCurrentQuestionIdx(0);
+    }
   }
 
   return (
     <>
       <h1 className={styles.h1}>
-        {category}: Question {questionId} / {questions.length}
+        {category}: Question {currentQuestionIdx + 1} / {questionsNumber}
       </h1>
 
       <div className={styles.questionCnt}>
@@ -66,7 +81,7 @@ export default function QuestionId({ quizes }) {
           {answers.map((answer, index) => (
             <div
               className={styles.inputQuestionForm}
-              key={`${index}-${questionId}`}
+              key={`${index}-${currentQuestionIdx + 1}`}
             >
               <label
                 htmlFor={index}
@@ -101,7 +116,7 @@ export default function QuestionId({ quizes }) {
                 Send
               </button>
             )}
-            {isSubmitted && questionIdNr < questions.length && (
+            {isSubmitted && currentQuestionIdx !== questionsNumber - 1 && (
               <Link href={`/quiz/${quizId}/question/${questionIdNr + 1}`}>
                 <button
                   onClick={handleNextQuestion}
@@ -113,18 +128,19 @@ export default function QuestionId({ quizes }) {
               </Link>
             )}
 
-            {isSubmitted && questionIdNr === questions.length && (
+            {isSubmitted && currentQuestionIdx === questionsNumber - 1 && (
               <button
                 onClick={() => {
-                  router.push(`/quiz/${quizId}/score`);
                   localStorage.setItem(
                     'score',
                     JSON.stringify({
                       category,
                       questionsNumber,
                       correctAnswers,
+                      quizId,
                     })
                   );
+                  router.push(`/quiz/${quizId}/score`);
                 }}
                 className={`${styles.btn} ${styles.btnDark}`}
                 type="button"

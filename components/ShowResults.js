@@ -5,6 +5,7 @@ export default function ShowResults({
   category,
   questionsNumber,
   correctAnswers,
+  quizId,
 }) {
   const successRate = ((correctAnswers / questionsNumber) * 100).toFixed(2);
 
@@ -24,11 +25,19 @@ export default function ShowResults({
             : 'You need to practice more!'}
         </p>
 
-        <Link href={'/'}>
-          <button className={`${styles.btn} ${styles.btnDark}`} type="button">
-            Try again!
-          </button>
-        </Link>
+        <div>
+          <Link href={'/'}>
+            <button className={`${styles.btn} ${styles.btnDark}`} type="button">
+              Try again!
+            </button>
+          </Link>
+
+          <Link href={`/quiz/${quizId}/form`}>
+            <button className={`${styles.btn} ${styles.btnLight}`}>
+              Add question
+            </button>
+          </Link>
+        </div>
       </div>
     </>
   );
