@@ -1,0 +1,183 @@
+/* // *** Spacing system (px)
+// 2 / 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 / 80 / 96 / 112/ 128
+
+// *** Font size system (px)
+//  10 / 12 / 14 / 16 / 18 / 20 / 24 / 30 / 36 / 44 / 52 / 62 / 74 / 86 / 98 / 128 */
+
+.h1 {
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--color-secondary);
+  text-align: center;
+  padding: 2.4rem 6.4rem;
+}
+
+.main {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.containerApp {
+  height: 40rem;
+  width: 55rem;
+  padding: 2.4rem;
+  border-radius: 1.5rem;
+  background-color: var(--color-light);
+
+  @media only screen and (max-width:48em) {
+    height: auto;
+    width: 70vw;
+  }
+
+  @media only screen and (max-width:36em) {
+    height: auto;
+    width: 90vw;
+  }
+}
+
+.containerCnt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3.6rem;
+  padding: 3.6rem;
+
+  @media only screen and (max-width:36em) {
+    gap: 1.8rem;
+  }
+}
+
+.containerCateg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3.2rem;
+  width: 80%;
+  margin: 0 auto;
+  padding: 1.6rem;
+  font-size: 1.8rem;
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--color-secondary-light);
+  opacity: 0.8;
+}
+
+.containerCateg>* {
+  width: 100%;
+  text-align: center;
+  padding: 1.2rem 2.4rem;
+  border-radius: 1rem;
+  background-color: var(--color-primary-light);
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.05);
+  transition: all 0.2s;
+}
+
+.containerCategActive {
+  color: var(--color-secondary);
+  opacity: 0.9;
+}
+
+.containerCategActive>* {
+  background-color: var(--color-primary);
+  cursor: pointer;
+}
+
+.containerCategActive>*:hover {
+  opacity: 0.8;
+  outline: 2px solid var(--color-secondary-light);
+}
+
+.quizCnt {
+  display: flex;
+  flex-direction: column;
+  gap: 3.2rem;
+}
+
+.quizCnt p {
+  font-size: 1.8rem;
+  line-height: 1.5;
+  text-align: center;
+  padding: 1.8rem 3.6rem;
+}
+
+.quizCnt div {
+  width: 45%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.questionCnt p {
+  text-align: center;
+  font-size: 1.8rem;
+  line-height: 1.4;
+  font-weight: 700;
+  padding: 0 1.6rem;
+}
+
+.questionCnt form {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 1.8rem 2.4rem;
+  font-size: 1.6rem;
+  line-height: 1.5;
+}
+
+.inputQuestionForm {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+}
+
+.btnForm {
+  margin: 2.4rem auto;
+}
+
+.btn {
+  border: none;
+  font-family: inherit;
+  font-size: 1.8rem;
+  font-weight: 400;
+  padding: 1.2rem 2.4rem;
+  border-radius: 1.2rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn:hover {
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+}
+
+.btn:active {
+  transform: translateY(-0.1rem);
+}
+
+.btnDark {
+  background-color: var(--color-secondary);
+  color: var(--color-primary-light);
+  border: 3px solid var(--color-primary-light)
+}
+
+.btnDark:hover {
+  background-color: var(--color-secondary-light);
+  color: var(--color-dark);
+}
+
+.btnLight {
+  color: var(--color-secondary);
+  background-color: var(--color-light);
+  border: 2px solid var(--color-secondary-light);
+}
+
+.btnLight:hover {
+  border: 2px solid var(--color-primary-light);
+  opacity: 0.8;
+}
