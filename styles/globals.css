@@ -6,9 +6,7 @@
   --color-primary: #FCA311;
   --color-primary-light: #fedaa0;
   --color-secondary: #231942;
-  --color-secondary-light: #9f86c0;
-  /* --color-background:  #fffdfa; */
-  --alpha: 0.2;
+  --color-secondary-light: #8F79AD;
 }
 
 *,
@@ -48,8 +46,6 @@ a {
   color: inherit;
   text-decoration: none;
 }
-
-
 
 /* // *** Spacing system (px)
 // 2 / 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 / 80 / 96 / 112/ 128

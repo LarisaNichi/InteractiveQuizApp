@@ -1,7 +1,30 @@
 import Link from 'next/link';
+import { useState, useEffect } from 'react';
 import styles from '@/styles/Home.module.css';
 
 export default function Categories() {
+  const [quizes, setQuizes] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    (async () => {
+      const res = await fetch('/api/questions');
+      const data = await res.json();
+      setQuizes(data);
+      setIsLoading(false);
+    })();
+  }, []);
+
+  if (isLoading) {
+    return (
+      <>
+        <div className={styles.centerCnt}>
+          <h1 className={styles.h1}>Loading...</h1>
+        </div>
+      </>
+    );
+  }
+
   return (
     <>
       <h1 className={styles.h1}>Select your category to start with!</h1>
@@ -9,19 +32,19 @@ export default function Categories() {
         <div
           className={`${styles.containerCateg} ${styles.containerCategActive}`}
         >
-          <Link href="/quiz/1">
-            <span>HTML</span>
-          </Link>
-          <Link href="/quiz/2">
-            <span>CSS</span>
-          </Link>
-          <Link href="/quiz/3">
-            <span>JS</span>
-          </Link>
+          {quizes.map(({ category, id }) => {
+            if (category)
+              return (
+                <Link href={`/quiz/${id}`} key={id}>
+                  <span>{category}</span>
+                </Link>
+              );
+          })}
         </div>
+
         <Link href="/">
           <button className={`${styles.btn} ${styles.btnLight}`}>
-            Go back
+            &lt;&lt;&lt;
           </button>
         </Link>
       </div>

@@ -11,7 +11,7 @@ export default function LayoutQuiz({ category, quizId }) {
       <h1 className={styles.h1}> {category} Quiz</h1>
 
       <div className={styles.quizCnt}>
-        <p>
+        <p className={styles.textCnt}>
           This quiz will include 3 single-answer questions to test your{' '}
           {category} knowledge.
         </p>
@@ -22,7 +22,6 @@ export default function LayoutQuiz({ category, quizId }) {
             </button>
           </Link>
           <Link href={`/quiz/${quizId}/question/1`}>
-            {/* <Link href="/"> */}
             <button className={`${styles.btn} ${styles.btnDark}`}>Start</button>
           </Link>
         </div>
