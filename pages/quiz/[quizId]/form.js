@@ -6,7 +6,7 @@ export default function AddQuestion() {
   const [localValue, setLocalValue] = useState({});
   const [formFields, setFormFields] = useState({
     question: '',
-    answers: new Array(3),
+    answers: [],
     correctAnswer: '',
   });
   const [isLoading, setIsLoading] = useState(false);
@@ -22,7 +22,7 @@ export default function AddQuestion() {
   const { category } = localValue;
   const answersNumber = new Array(3).fill('');
 
-  function handleInputQuestion(e) {
+  function handleInputQuestionOrCorrectAnswer(e) {
     const fieldName = e.target.name;
     const fieldValue = e.target.value;
 
@@ -33,7 +33,7 @@ export default function AddQuestion() {
   }
 
   function handleInputAnswer(e, index) {
-    const fieldName = e.target.name;
+    const fieldName = 'answers';
     const fieldValue = e.target.value;
     const answersValues = formFields[fieldName];
     answersValues[index] = fieldValue;
@@ -44,53 +44,37 @@ export default function AddQuestion() {
     }));
   }
 
-  function handleCorrectAnswer(e) {
-    const fieldName = e.target.name;
-    const fieldValue = e.target.value;
-    setFormFields((prevState) => ({
-      ...prevState,
-      [fieldName]: fieldValue,
-    }));
-  }
-
-  function isValidJSON(str) {
-    try {
-      JSON.parse(str);
-      // console.log("it's a JSON type");
-      return true;
-    } catch (e) {
-      // console.log("it's not a JSON type");
+  function areAnswersUnique() {
+    let uniqueAnswers = new Set();
+    formFields.answers.forEach((answer) => uniqueAnswers.add(answer));
+    if (uniqueAnswers.size !== formFields.answers.length) {
       return false;
     }
-  }
-  function parseJSON(str) {
-    return isValidJSON(str) ? JSON.parse(str) : str;
+    return true;
   }
 
   async function onSubmit(e) {
     e.preventDefault();
     setIsLoading(true);
-    setError(null);
+
+    const areAnswersDifferent = areAnswersUnique();
+    if (!areAnswersDifferent || !formFields.correctAnswer) {
+      let error;
+      !formFields.correctAnswer && (error = 'Please select an answer');
+      !areAnswersDifferent &&
+        (error = 'Please input different answers in the form');
+      if (error) {
+        setError(error);
+      }
+      setIsLoading(false);
+      return;
+    }
 
     try {
       const formData = new FormData(e.target);
-      Object.entries(formFields).forEach(([key, value]) => {
-        // (Array.isArray(value)
-        if (typeof value !== 'string') {
-          formData.set(key, JSON.stringify(value));
-        } else {
-          formData.set(key, value);
-        }
-      });
-      // const value = Object.fromEntries(formData.entries());
-      // console.log(value);
-      const formDataJSONObject = [...formData.entries()].reduce(
-        (acc, [key, value]) => {
-          acc[parseJSON(key)] = parseJSON(value);
-          return acc;
-        },
-        {}
-      );
+      const { question, correctAnswer, ...answersObject } =
+        Object.fromEntries(formData);
+      const answers = Object.values(answersObject);
 
       const response = await fetch('/api/questions', {
         method: 'POST',
@@ -98,13 +82,19 @@ export default function AddQuestion() {
           'Content-Type': 'application/json',
           accept: 'application/json',
         },
-        body: JSON.stringify(formDataJSONObject),
+        body: JSON.stringify({
+          quizQuestion: { question, answers, correctAnswer },
+          category,
+        }),
       });
+
+      const result = await response.json();
+      console.log(result);
 
       setFormSuccess(true);
       setFormFields({
         question: '',
-        answers: new Array(3),
+        answers: [],
         correctAnswer: '',
       });
       if (!response.ok) {
@@ -143,7 +133,7 @@ export default function AddQuestion() {
             <input
               type="text"
               name="question"
-              onChange={handleInputQuestion}
+              onChange={handleInputQuestionOrCorrectAnswer}
               value={formFields.question || ''}
               id="question"
               placeholder="Enter your question"
@@ -155,7 +145,7 @@ export default function AddQuestion() {
               <label htmlFor={`answer-${index}`}>Answer {index + 1}:</label>
               <input
                 type="text"
-                name="answers"
+                name={`answer-${index}`}
                 onChange={(e) => handleInputAnswer(e, index)}
                 id={`answer-${index}`}
                 value={formFields.answers[index] || ''}
@@ -169,7 +159,7 @@ export default function AddQuestion() {
             <label htmlFor="correctAnswer:">Correct answer: </label>
             <select
               name="correctAnswer"
-              onChange={handleCorrectAnswer}
+              onChange={handleInputQuestionOrCorrectAnswer}
               id="correctAnswer"
               defaultValue="noAnswer"
               required={true}
@@ -183,7 +173,7 @@ export default function AddQuestion() {
                   <option
                     value={answer || ''}
                     key={`answer-${index}`}
-                    onChange={handleCorrectAnswer}
+                    onChange={handleInputQuestionOrCorrectAnswer}
                   >
                     {answer}
                   </option>
