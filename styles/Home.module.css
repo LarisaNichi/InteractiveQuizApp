@@ -1,0 +1,286 @@
+.h1 {
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--color-secondary);
+  text-align: center;
+  padding: 2.4rem 6.4rem;
+}
+
+.h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--color-secondary);
+  text-align: center;
+  padding: 0.8rem;
+}
+
+.main {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.centerCnt {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.containerApp {
+  min-height: 40rem;
+  width: 55rem;
+  padding: 2.4rem;
+  border-radius: 1.5rem;
+  background-color: var(--color-light);
+  position: relative;
+
+  @media only screen and (max-width:48em) {
+    height: auto;
+    width: 70vw;
+  }
+
+  @media only screen and (max-width:36em) {
+    height: auto;
+    width: 90vw;
+  }
+}
+
+.containerCnt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3.6rem;
+  padding: 3.6rem;
+
+  @media only screen and (max-width:36em) {
+    gap: 1.8rem;
+  }
+}
+
+.containerCateg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3.2rem;
+  width: 80%;
+  margin: 0 auto;
+  padding: 1.6rem;
+  font-size: 1.8rem;
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--color-secondary-light);
+  opacity: 0.8;
+}
+
+.containerCateg>* {
+  width: 100%;
+  text-align: center;
+  padding: 1.2rem 2.4rem;
+  border-radius: 1rem;
+  background-color: var(--color-primary-light);
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.05);
+  transition: all 0.2s;
+}
+
+.containerCategActive {
+  color: var(--color-secondary);
+  opacity: 0.9;
+}
+
+.containerCategActive>* {
+  background-color: var(--color-primary);
+  cursor: pointer;
+}
+
+.containerCategActive>*:hover {
+  opacity: 0.8;
+  outline: 2px solid var(--color-secondary-light);
+}
+
+.quizCnt {
+  display: flex;
+  flex-direction: column;
+  gap: 3.2rem;
+}
+
+.textCnt {
+  font-size: 1.8rem;
+  line-height: 1.5;
+  text-align: center;
+  padding: 1.8rem 3.6rem;
+}
+
+.quizCnt div,
+.resultCtn div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3.2rem;
+}
+
+.questionCnt {
+  min-height: 80%;
+}
+
+.questionCnt p {
+  text-align: center;
+  font-size: 1.8rem;
+  line-height: 1.4;
+  font-weight: 700;
+  padding: 0 1.6rem;
+}
+
+.questionCnt form {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: center;
+  /* height: 90%; */
+  gap: 0.8rem;
+  padding: 1.8rem 2.4rem;
+  font-size: 1.6rem;
+  line-height: 1.5;
+}
+
+.inputQuestionForm label {
+  display: block;
+}
+
+.inputAddQuestionForm {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.inputAddQuestionForm input,
+.inputAddQuestionForm select {
+  width: 65%;
+  margin-left: auto;
+  margin-right: 2.4rem;
+  text-align: center;
+  border: none;
+  font-family: inherit;
+  font-size: 1.6rem;
+  font-weight: 400;
+  padding: 0.8rem 1.6rem;
+  border-radius: 0.4rem;
+  background-color: var(--color-secondary-light);
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2);
+}
+
+.inputAddQuestionForm select {
+  cursor: pointer;
+}
+
+.inputAddQuestionForm label {
+  font-weight: 700;
+}
+
+.inputQuestionForm label>input {
+  margin-right: 0.8rem;
+}
+
+.inputAddQuestionForm input::placeholder,
+.inputAddQuestionForm select::placeholder {
+  color: var(--color-primary-light)
+}
+
+.inputAddQuestionForm input:focus,
+.inputAddQuestionForm select:focus {
+  outline: 0.2rem solid var(--color-primary-light);
+}
+
+.selectedLabel {
+  color: var(--color-secondary-light)
+}
+
+.questionMessage {
+  width: 100%;
+  text-align: center;
+  color: var(--color-primary);
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.questionMessageAnswer {
+  display: block;
+  color: var(--color-secondary);
+}
+
+.questionError {
+  font-size: 1.6rem;
+  font-weight: 700;
+  text-align: center;
+  color: #ff0000;
+
+}
+
+
+.resultCtn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.resultCtn span {
+  display: block;
+  padding: 0.8rem;
+}
+
+.resultCtn p {
+  color: var(--color-primary)
+}
+
+.btnForm {
+  text-align: center;
+  margin-top: 1.2rem;
+}
+
+.btn {
+  display: block;
+  margin: 0 auto;
+  border: none;
+  font-family: inherit;
+  font-size: 1.8rem;
+  font-weight: 400;
+  padding: 1.2rem 2.4rem;
+  border-radius: 1.2rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn:hover {
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+}
+
+.btn:active {
+  transform: translateY(-0.1rem);
+}
+
+.btnDark {
+  background-color: var(--color-secondary);
+  color: var(--color-primary-light);
+  border: 3px solid var(--color-primary-light);
+}
+
+.btnDark:hover {
+  background-color: var(--color-secondary-light);
+  color: var(--color-dark);
+}
+
+.btnLight {
+  color: var(--color-secondary);
+  background-color: var(--color-light);
+  border: 2px solid var(--color-secondary-light);
+}
+
+.btnLight:hover {
+  border: 2px solid var(--color-primary-light);
+  opacity: 0.8;
+}
