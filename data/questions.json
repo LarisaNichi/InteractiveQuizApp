@@ -13,7 +13,6 @@
       },
       {
         "question": "Which attribute of an input type of radio links them together to ensure only one is selected?",
-        "code": "&lt;input type='radio' ...&gt;",
         "answers": ["role", "value", "id", "name"],
         "correctAnswer": "name"
       },

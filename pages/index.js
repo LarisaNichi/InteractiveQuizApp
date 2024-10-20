@@ -1,9 +1,31 @@
 import Head from 'next/head';
 import Link from 'next/link';
+import { useState, useEffect } from 'react';
 import styles from '@/styles/Home.module.css';
-import { promises as fs } from 'fs';
 
-export default function Home({ quizes }) {
+export default function Home() {
+  const [quizes, setQuizes] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    (async () => {
+      const res = await fetch('/api/questions');
+      const data = await res.json();
+      setQuizes(data);
+      setIsLoading(false);
+    })();
+  }, []);
+
+  if (isLoading) {
+    return (
+      <>
+        <div className={styles.centerCnt}>
+          <h1 className={styles.h1}>Loading...</h1>
+        </div>
+      </>
+    );
+  }
+
   return (
     <>
       <Head>
@@ -15,9 +37,9 @@ export default function Home({ quizes }) {
       <h1 className={styles.h1}>Test your Frontend knowledge!</h1>
       <div className={styles.containerCnt}>
         <div className={styles.containerCateg}>
-          {quizes.map(({ category, id }) => (
-            <span key={id}>{category}</span>
-          ))}
+          {quizes.map(({ category, id }) => {
+            if (category) return <span key={id}>{category}</span>;
+          })}
         </div>
         <Link href="/categories">
           <button className={`${styles.btn} ${styles.btnDark}`}>
@@ -27,13 +49,4 @@ export default function Home({ quizes }) {
       </div>
     </>
   );
-}
-
-export async function getServerSideProps() {
-  const file = await fs.readFile(
-    process.cwd() + '/data/questions.json',
-    'utf8'
-  );
-  const quizes = JSON.parse(file);
-  return { props: { quizes } };
 }

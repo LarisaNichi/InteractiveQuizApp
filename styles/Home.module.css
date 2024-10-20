@@ -23,12 +23,20 @@
   align-items: center;
 }
 
+.centerCnt {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .containerApp {
   min-height: 40rem;
   width: 55rem;
   padding: 2.4rem;
   border-radius: 1.5rem;
   background-color: var(--color-light);
+  position: relative;
 
   @media only screen and (max-width:48em) {
     height: auto;
@@ -107,7 +115,8 @@
   padding: 1.8rem 3.6rem;
 }
 
-.quizCnt div {
+.quizCnt div,
+.resultCtn div {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -138,13 +147,52 @@
   line-height: 1.5;
 }
 
-
 .inputQuestionForm label {
   display: block;
 }
 
+.inputAddQuestionForm {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.inputAddQuestionForm input,
+.inputAddQuestionForm select {
+  width: 65%;
+  margin-left: auto;
+  margin-right: 2.4rem;
+  text-align: center;
+  border: none;
+  font-family: inherit;
+  font-size: 1.6rem;
+  font-weight: 400;
+  padding: 0.8rem 1.6rem;
+  border-radius: 0.4rem;
+  background-color: var(--color-secondary-light);
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2);
+}
+
+.inputAddQuestionForm select {
+  cursor: pointer;
+}
+
+.inputAddQuestionForm label {
+  font-weight: 700;
+}
+
 .inputQuestionForm label>input {
   margin-right: 0.8rem;
+}
+
+.inputAddQuestionForm input::placeholder,
+.inputAddQuestionForm select::placeholder {
+  color: var(--color-primary-light)
+}
+
+.inputAddQuestionForm input:focus,
+.inputAddQuestionForm select:focus {
+  outline: 0.2rem solid var(--color-primary-light);
 }
 
 .selectedLabel {
@@ -163,6 +211,15 @@
   display: block;
   color: var(--color-secondary);
 }
+
+.questionError {
+  font-size: 1.6rem;
+  font-weight: 700;
+  text-align: center;
+  color: #ff0000;
+
+}
+
 
 .resultCtn {
   display: flex;
@@ -186,6 +243,8 @@
 }
 
 .btn {
+  display: block;
+  margin: 0 auto;
   border: none;
   font-family: inherit;
   font-size: 1.8rem;

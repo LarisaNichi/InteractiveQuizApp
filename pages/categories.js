@@ -1,8 +1,30 @@
 import Link from 'next/link';
+import { useState, useEffect } from 'react';
 import styles from '@/styles/Home.module.css';
-import { promises as fs } from 'fs';
 
-export default function Categories({ quizes }) {
+export default function Categories() {
+  const [quizes, setQuizes] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    (async () => {
+      const res = await fetch('/api/questions');
+      const data = await res.json();
+      setQuizes(data);
+      setIsLoading(false);
+    })();
+  }, []);
+
+  if (isLoading) {
+    return (
+      <>
+        <div className={styles.centerCnt}>
+          <h1 className={styles.h1}>Loading...</h1>
+        </div>
+      </>
+    );
+  }
+
   return (
     <>
       <h1 className={styles.h1}>Select your category to start with!</h1>
@@ -10,28 +32,22 @@ export default function Categories({ quizes }) {
         <div
           className={`${styles.containerCateg} ${styles.containerCategActive}`}
         >
-          {quizes.map(({ category, id }) => (
-            <Link href={`/quiz/${id}`} key={id}>
-              <span>{category}</span>
-            </Link>
-          ))}
+          {quizes.map(({ category, id }) => {
+            if (category)
+              return (
+                <Link href={`/quiz/${id}`} key={id}>
+                  <span>{category}</span>
+                </Link>
+              );
+          })}
         </div>
 
         <Link href="/">
           <button className={`${styles.btn} ${styles.btnLight}`}>
-            Go back
+            &lt;&lt;&lt;
           </button>
         </Link>
       </div>
     </>
   );
-}
-
-export async function getServerSideProps() {
-  const file = await fs.readFile(
-    process.cwd() + '/data/questions.json',
-    'utf8'
-  );
-  const quizes = JSON.parse(file);
-  return { props: { quizes } };
 }
