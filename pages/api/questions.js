@@ -15,7 +15,9 @@ export default async function handler(req, res) {
     }
   } else if (req.method === 'POST') {
     try {
-      quizes.push(req.body);
+      const { quizQuestion, category } = req.body;
+      const quiz = quizes.find((quiz) => quiz.category === category);
+      quiz.questions.push(quizQuestion);
 
       const quizesUpdated = JSON.stringify(quizes);
       await fs.writeFile(process.cwd() + '/data/questions.json', quizesUpdated);

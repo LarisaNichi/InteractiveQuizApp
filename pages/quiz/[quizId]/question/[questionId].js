@@ -34,11 +34,6 @@ export default function QuestionId() {
     );
   }
 
-  // if (quizes.length === 0) {
-  //   return <h1 className={styles.h1}>Loading...</h1>;
-  // }
-  // if (!quizes) return <h1 className={styles.h1}>No quizes available yet!</h1>;
-
   const questionIdNr = +questionId;
   const { category, questions } = quizes.find((quiz) => quiz.id === +quizId);
   const questionsNumber = questions.length;
