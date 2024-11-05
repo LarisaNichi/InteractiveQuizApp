@@ -1,41 +1,26 @@
 # InteractiveQuizApp
 
-**InteractiveQuizApp** is an interactive quiz application where users can test their knowledge and also add their own questions to the quiz.
+**InteractiveQuizApp** is an interactive quiz application that allows users to test their knowledge on various topics. This project is built with modern web technologies to provide a smooth and dynamic quiz-taking experience.
 
 ## Description
 
-The project was developed gradually, applying _JavaScript_ fundamentals, using the [React](https://react.dev/) library and [Next.js](https://nextjs.org/) framework. Various stages were completed to consolidate knowledge, all of them being merged at the end of the project.
+This application allows users to choose a category for testing their knowledge and answer single-choice questions. Scores are tracked and displayed at the end of the quiz. New questions and answers for each category can be added dynamically by each user. Quiz data are fetched from the Next.js API for a seamless experience.
 
-### 🔸 First stage (_Module-1_ branch):
+The project was developed gradually. Various stages were completed to consolidate knowledge, all of them being merged at the end of the project.
 
-- Entities were defined (questions, quiz and categories);
-- Routes were defined using Next.js:
-  - Home (pages/index.js)
-  - Categories (pages/categories.js)
-  - Quiz (pages/quiz/[quizId].js)
-  - Question (pages/quiz/[quizId]/question/[questionId].js)
-- Navigation between pages was implemented using Next.js routing (next/link).
+### Technologies Used
 
-### 🔸🔸 Second stage (_Module-2_ branch):
-
-- Question were read from newly created questions.json file using getServerSideProps;
-- All the pages were update in order to show data from .json file instead of static data;
-- New features were added: the correct / wrong answer is shown when clicking an answer, the final score is computed and displayed at the end of the quiz.
-
-### 🔸🔸🔸 Third stage (_Module-3_ branch):
-
-- An API route was created in Next.js (pages/api/questions.js) which returned the questions from questions.json file;
-- The Components were modified so that questions were displayed using "useEffect", while data were stored in "state" with "useState";
-- A new form was created so that the users could add new questions to the form;
-- The questions submitted were added in questions.json file.
-
-### 🔸🔸🔸🔸 Improvements (_Improvements_ branch):
-
-- The added question was connected to the corresponding quiz and displayed in the related quiz;
-- Input validations were defined before submitting the form;
-- Refactoring of the code from the input form.
+- [Next.js](https://nextjs.org/): Framework for server-rendered React applications.
+- [React](https://react.dev/) React: JavaScript library for building user interfaces.
+- [CSS Modules](https://nextjs.org/docs/pages/building-your-application/styling#css-modules): Scoped CSS for styling components.
 
 ## Getting Started
+
+To get a local copy up and running, follow these simple steps.
+
+### Prerequisites
+
+Ensure you have **Node.js (v14+)** and **npm** or **yarn** installed on your machine.
 
 ### Installing
 
@@ -80,20 +65,6 @@ You can start editing the page by modifying `pages/index.js`. The page auto-upda
 
 The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## License
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-
+This project is licensed under the MIT License.
